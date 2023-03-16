@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
 import Button from './Button.svelte?svelte';
+import View from './View.svelte?svelte';
 
-export default function App() {
+function App() {
   const [count, setCount] = useState(0);
   const increment = () => setCount(count => count + 1);
 
+  return (
+    <View>
+      <h1>Heading</h1>
+      <Button count={count} onClick={increment}>
+        <span>Click me</span>
+      </Button>
+    </View>
+  );
+}
+
+export default function Root() {
   return (
     <html>
       <head>
@@ -13,8 +25,7 @@ export default function App() {
         <title>My app</title>
       </head>
       <body>
-        <button onClick={increment}>React: {count}</button>
-        <Button count={count} onClick={increment} />
+        <App />
       </body>
     </html>
   );

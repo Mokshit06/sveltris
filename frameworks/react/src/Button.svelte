@@ -2,6 +2,7 @@
   export let count;
 </script>
 
+<slot />
 <button on:click>
   Svelte: {count}
 </button>

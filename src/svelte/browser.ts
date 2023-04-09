@@ -3,22 +3,22 @@ import React from 'react';
 import { getEvents } from '../common';
 import { writable, get, readable, readonly } from 'svelte/store';
 
-export function removeEvents(props) {
+export function removeEvents(props: any) {
   return Object.fromEntries(
     Object.entries(props ?? {}).filter(([prop]) => !/^on[A-Z]/.test(prop))
   );
 }
 
-export function ev(fn) {
+export function ev(fn: (...args: any[]) => any) {
   if (!fn) return fn;
 
-  return e => {
+  return (e: any) => {
     e.nativeEvent = e;
     return fn(e);
   };
 }
 
-export function setupEvents(node, obj) {
+export function setupEvents(node: HTMLElement, obj: any) {
   const events = getEvents(obj);
 
   for (const [name, handler] of events) {
@@ -34,11 +34,10 @@ export function setupEvents(node, obj) {
   };
 }
 
-function createReactApp(hook, args, store) {
+function createReactApp(hook: any, args: any, store: any) {
   return function ReactApp() {
     const _state = hook(...(get(args) as any));
 
-    console.log('doing');
     React.useEffect(() => {
       store.set(_state);
     }, [_state]);
@@ -47,7 +46,7 @@ function createReactApp(hook, args, store) {
   };
 }
 
-export function use(hook, args = [], ctxs = []) {
+export function use(hook: any, args = [], ctxs = []) {
   let store = writable(null);
   let ReactApp = createReactApp(
     hook,

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
-export function createReactNodeComponent(name: string, SvelteComponent$$: any) {
+export function createReactComponent(name: string, SvelteComponent$$: any) {
   const ReactComponent$$ = props => {
     const { children, ...svelteProps } = props;
     const id = React.useId();

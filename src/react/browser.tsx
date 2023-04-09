@@ -113,10 +113,7 @@ function createSlot(id) {
   };
 }
 
-export function createReactBrowserComponent(
-  name: string,
-  SvelteComponent$$: any
-) {
+export function createReactComponent(name: string, SvelteComponent$$: any) {
   let ReactComponent$$ = function ReactComponent(props) {
     const rootRef = React.useRef<HTMLDivElement>(null);
     const svelteComponentRef = React.useRef<any>();
@@ -164,6 +161,7 @@ export function createReactBrowserComponent(
           dangerouslySetInnerHTML={{ __html: '' }}
         />
         {mounted &&
+          children &&
           ReactDOM.createPortal(children, document.getElementById(id))}
       </>
     );

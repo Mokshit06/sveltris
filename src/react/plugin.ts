@@ -15,7 +15,7 @@ const svelteInReact = createUnplugin((options: {}) => {
         import SvelteComponent$${name} from ${JSON.stringify(
         id.replace(/\?in-react$/, '')
       )};
-        import {createReactComponent} from 'svelact/react'
+        import {createReactComponent} from 'sveltris/react'
 
         const ReactComponent$${name} = createReactComponent(
           \`ReactComponent$${name}\`,

@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { svelteInReactVitePlugin } from 'svelact/react/plugin';
+import { svelteInReactVitePlugin } from 'sveltris/react/plugin';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 // https://vitejs.dev/config/

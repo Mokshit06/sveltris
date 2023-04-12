@@ -1,0 +1,12 @@
+.dark .sveltris-backdrop-light {
+  display: none;
+}
+
+.light .sveltris-backdrop-dark {
+  display: none;
+}
+
+.sveltris-backdrop-dark,
+.sveltris-backdrop-light {
+  margin-top: 1rem;
+}

@@ -1,3 +1,6 @@
 {
-  "index": "Introduction"
+  "docs": {
+    "title": "Documentation",
+    "type": "page"
+  }
 }

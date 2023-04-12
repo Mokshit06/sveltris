@@ -19,6 +19,8 @@ With sveltris, you can intermix UI primitives like components, and state primiti
 
 ## Features
 
+Currently Sveltris only supports React, but might support others soon.
+
 **Hooks inside svelte** - You can use logic hooks from React inside svelte by just wrapping them in `use`. This returns a svelte store that is reactive to the changes to hook state.
 
 ```html
@@ -29,9 +31,8 @@ With sveltris, you can intermix UI primitives like components, and state primiti
   const counter = use(useCounter());
 </script>
 
-{#if $counter}
-  {@const { count, increment } = $counter}
-  <button on:click="{increment}">{count}</button>
+{#if $counter} {@const { count, increment } = $counter}
+<button on:click="{increment}">{count}</button>
 {/if}
 ```
 

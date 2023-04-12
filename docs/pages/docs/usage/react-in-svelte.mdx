@@ -1,1 +1,26 @@
 # React in Svelte
+
+With Sveltris, you can use any React component inside Svelte as if it was a regular Svelte component.
+
+```html
+<script>
+  import Counter from './Counter?in-svelte';
+</script>
+
+<Counter />
+```
+
+Sveltris also maps all React and custom event handlers (`/on(.*)/`) to Svelte format, and you can set them using `/on:(.*)/` syntax.
+So if a component has an `onSubmit` prop, you can set it as `on:submit`
+
+```html
+<script>
+  import Input from './Input?in-svelte';
+
+  let value = '';
+</script>
+
+<Input {value} on:change={v => value = v} />
+```
+
+These components also _just work_ with SSR without any extra configuration required.

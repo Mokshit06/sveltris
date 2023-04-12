@@ -1,1 +1,27 @@
 # Using React Hooks
+
+Sveltris allows you to use React hooks inside your Svelte component by wrapping the call inside `use`.
+
+`use` returns a `readonly` svelte store that can be subscribed to by your component.
+
+The value of this store is `undefined` during the initial render, so it needs to be accessed inside an `#if` block.
+
+```html
+<script>
+import { useState } from 'react'
+import { use } from 'sveltris'
+
+const counter = use(useState(0))
+</script>
+
+{#if $counter}
+  {@const [count, setCount] = $counter}
+  <button on:click={() => setCount(c => c + 1)}>
+    {count}
+  </button>
+{/if}
+```
+
+## Limitations
+
+It has some limitations, for eg. you can't use hooks that depend on a parent `ContextProvider` being there in the react root. But if the `ContextProvider` isn't stateful then it can be passed as the second argument of `use`

@@ -34,9 +34,9 @@ export function setupEvents(node: HTMLElement, obj: any) {
   };
 }
 
-function createReactApp(hook: any, args: any, store: any) {
+function createReactApp(hookFn: any, store: any) {
   return function ReactApp() {
-    const _state = hook(...(get(args) as any));
+    const _state = hookFn();
 
     React.useEffect(() => {
       store.set(_state);
@@ -46,11 +46,11 @@ function createReactApp(hook: any, args: any, store: any) {
   };
 }
 
-export function use(hook: any, args = [], ctxs = []) {
+export function use(hookFn: any, ctxs = []) {
   let store = writable(null);
   let ReactApp = createReactApp(
-    hook,
-    (args as any).subscribe ? args : readable(args),
+    hookFn,
+    // (args as any).subscribe ? args : readable(args),
     store
   );
 

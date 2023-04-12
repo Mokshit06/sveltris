@@ -31,7 +31,7 @@ import { Tab, Tabs, Steps, Callout } from 'nextra-theme-docs'
 <Tabs items={["Esbuild",  "Vite", "Webpack"]}>
   <Tab>
     ```js
-    const { sveltrisEsbuildPlugins } = require("sveltris/esbuild")
+    const { sveltrisEsbuildPlugins } = require("sveltris")
     const esbuild = require('esbuild')
 
     esbuild.build({
@@ -44,23 +44,34 @@ import { Tab, Tabs, Steps, Callout } from 'nextra-theme-docs'
   </Tab>
   <Tab>
   ```js filename="vite.config.js"
-  import { sveltrisVitePlugin } from "sveltris/vite"
+  import { sveltrisVitePlugins } from "sveltris"
   import { defineConfig } from 'vite';
 
   export default defineConfig({
     plugins: [
-      sveltrisVitePlugin()
+      ...sveltrisVitePlugins()
     ]
   })
   ```
   </Tab>
   <Tab>
   ```js filename="webpack.config.js"
-  const { SveltrisWebpackPlugin } = require("sveltris/webpack")
+  const { sveltrisWebpackPlugins } = require("sveltris")
 
   module.exports = {
     plugins: [
-      new SveltrisWebpackPlugin()
+      ...sveltrisWebpackPlugins()
+    ]
+  }
+  ```
+  </Tab>
+    <Tab>
+  ```js filename="rollup.config.js"
+  const { sveltrisRollupPlugins } = require("sveltris")
+
+  module.exports = {
+    plugins: [
+      ...sveltrisRollupPlugins()
     ]
   }
   ```

@@ -9,13 +9,12 @@
       "node": "./dist/react/node.js",
       "default": "./dist/react/browser.js"
     },
-    "./react/plugin": "./dist/react/plugin.js",
     "./svelte": {
       "browser": "./dist/svelte/browser.mjs",
       "node": "./dist/svelte/node.js",
       "default": "./dist/svelte/browser.js"
     },
-    "./svelte/plugin": "./dist/svelte/plugin.js"
+    ".": "./dist/index.js"
   },
   "scripts": {
     "build": "tsup",

@@ -2,9 +2,9 @@ import path from 'path';
 import { createUnplugin } from 'unplugin';
 import { outdent } from 'outdent';
 
-const svelteInReact = createUnplugin((options: {}) => {
+export const sveltrisSvelteInReact = createUnplugin((options: {}) => {
   return {
-    name: 'svelte-in-react',
+    name: 'sveltris-svelte-in-react',
     transformInclude(id) {
       return id.endsWith('?in-react');
     },
@@ -27,9 +27,3 @@ const svelteInReact = createUnplugin((options: {}) => {
     },
   };
 });
-
-export const {
-  esbuild: svelteInReactEsbuildPlugin,
-  vite: svelteInReactVitePlugin,
-  webpack: svelteInReactWebpackPlugin,
-} = svelteInReact;

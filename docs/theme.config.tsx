@@ -26,6 +26,28 @@ const config: DocsThemeConfig = {
   footer: {
     text: 'MIT 2023 © Mokshit Jain',
   },
+  head: (
+    <>
+      <title>Sveltris</title>
+      <meta
+        name="description"
+        content="Piece together any framework with Svelte like Tetris"
+      />
+      <meta
+        name="og:description"
+        content="Piece together any framework with Svelte like Tetris"
+      />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@mokshit06" />
+      <meta
+        name="og:image"
+        content="https://sveltris.vercel.app/backdrop-dark.jpg"
+      />
+      <meta name="og:title" content="Sveltris" />
+      <meta name="apple-mobile-web-app-title" content="Sveltris" />
+      <link rel="icon" type="image/png" href="/favicon.png" />
+    </>
+  ),
 };
 
 export default config;

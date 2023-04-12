@@ -1,18 +1,24 @@
-import React from 'react'
-import { DocsThemeConfig } from 'nextra-theme-docs'
+import React from 'react';
+import { DocsThemeConfig } from 'nextra-theme-docs';
 
 const config: DocsThemeConfig = {
-  logo: <span>My Project</span>,
+  logo: (
+    <span
+      // className={
+      //   tw.text_base.md(tw.text_lg).mx_2.font_extrabold.inline.select_none
+      // }
+      style={{ fontFamily: 'IBM Plex Mono, monospace' }}
+    >
+      sveltris
+    </span>
+  ),
   project: {
-    link: 'https://github.com/shuding/nextra-docs-template',
+    link: 'https://github.com/mokshit06/sveltris',
   },
-  chat: {
-    link: 'https://discord.com',
-  },
-  docsRepositoryBase: 'https://github.com/shuding/nextra-docs-template',
+  docsRepositoryBase: 'https://github.com/mokshit06/sveltris',
   footer: {
     text: 'Nextra Docs Template',
   },
-}
+};
 
-export default config
+export default config;

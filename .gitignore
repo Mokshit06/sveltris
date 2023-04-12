@@ -2,3 +2,4 @@ node_modules
 dist
 server.js
 .vscode
+.DS_Store

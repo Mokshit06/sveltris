@@ -1,3 +1,5 @@
+import Callout from 'nextra-theme-docs';
+
 # React in Svelte
 
 With Sveltris, you can use any React component inside Svelte as if it was a regular Svelte component.
@@ -10,7 +12,18 @@ With Sveltris, you can use any React component inside Svelte as if it was a regu
 <Counter />
 ```
 
-Sveltris also maps all React and custom event handlers (`/on(.*)/`) to Svelte format, and you can set them using `/on:(.*)/` syntax.
+<Callout>
+The React component must be a default export for it to work. If it is not a default export, then you can create another `.js` file that re-exports the named export as a default export.
+
+```js
+export { Counter as default } from './Counter?in-svelte';
+```
+
+</Callout>
+
+## Props and Events
+
+Sveltris also accepts all props, and triggers a selective rerender whenever the props update. It also maps all React and custom event handlers (`/on(.*)/`) to Svelte format, and you can set them using `/on:(.*)/` syntax.
 So if a component has an `onSubmit` prop, you can set it as `on:submit`
 
 ```html
@@ -22,5 +35,3 @@ So if a component has an `onSubmit` prop, you can set it as `on:submit`
 
 <Input {value} on:change={v => value = v} />
 ```
-
-These components also _just work_ with SSR without any extra configuration required.

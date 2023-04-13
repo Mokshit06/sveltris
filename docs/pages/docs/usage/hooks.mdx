@@ -14,9 +14,9 @@ Sveltris allows you to use React hooks inside your Svelte component by wrapping 
 ```html
 <script>
 import { useState } from 'react'
-import { use } from 'sveltris/react'
+import { use } from 'sveltris/svelte'
 
-const counter = use(useState(0))
+const counter = use(() => useState(0))
 </script>
 
 {#if $counter}

@@ -28,7 +28,7 @@ Currently Sveltris only supports React, but might support others soon.
   import { useCounter } from 'some-lib';
   import { use } from 'sveltris/svelte';
 
-  const counter = use(useCounter());
+  const counter = use(() => useCounter());
 </script>
 
 {#if $counter} {@const { count, increment } = $counter}

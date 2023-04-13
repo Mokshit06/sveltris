@@ -31,8 +31,9 @@ Currently Sveltris only supports React, but might support others soon.
   const counter = use(() => useCounter());
 </script>
 
-{#if $counter} {@const { count, increment } = $counter}
-<button on:click="{increment}">{count}</button>
+{#if $counter}
+  {@const { count, increment } = $counter}
+  <button on:click="{increment}">{count}</button>
 {/if}
 ```
 

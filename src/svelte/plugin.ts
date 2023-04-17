@@ -15,10 +15,11 @@ export const sveltrisReactInSvelte = createUnplugin(() => {
     },
     load(id) {
       if (/^sveltris-react-in-svelte.svelte\?path=/.test(id)) {
+        console.log({ fullId: id, id: id.slice(28) });
         return outdent`
         <script>
           import { onMount, createEventDispatcher, onDestroy, afterUpdate } from 'svelte';
-          import Component from ${JSON.stringify(id.slice(28))};
+          import Component from ${JSON.stringify(id.slice(37))};
           import React from 'react';
           import ReactDOM from 'react-dom/client';
 

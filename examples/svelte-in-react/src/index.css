@@ -14,17 +14,40 @@
   -webkit-text-size-adjust: 100%;
 }
 
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
 body {
   margin: 0;
-  display: grid;
+  display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
 
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
 .card {
+  padding: 2em;
   display: flex;
-  gap: 1rem;
+  gap: 0.2rem;
+  justify-content: center;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
 button {
@@ -44,4 +67,30 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em rgba(20, 158, 202, 0.667));
+}
+.logo.svelte:hover {
+  filter: drop-shadow(0 0 2em rgba(255, 62, 0, 0.667));
 }

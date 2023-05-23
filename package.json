@@ -1,8 +1,8 @@
 {
   "name": "sveltris",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "Piece together any framework with Svelte (like Tetris)",
+  "main": "./dist/index.js",
   "exports": {
     "./react": {
       "browser": "./dist/react/browser.mjs",
@@ -16,13 +16,25 @@
     },
     ".": "./dist/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mokshit06/sveltris.git"
+  },
   "scripts": {
     "build": "tsup",
     "watch": "npm run build -- --watch"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Mokshit Jain",
+    "url": "https://mokshitjain.co",
+    "email": "mokshitjain2006@gmail.com"
+  },
+  "license": "MIT",
+  "files": [
+    "src",
+    "dist"
+  ],
   "dependencies": {
     "outdent": "^0.8.0",
     "react-nil": "^1.2.0",

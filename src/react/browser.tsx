@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import {
   attr,
   children,
@@ -59,7 +59,7 @@ function create_fragment(ctx) {
 function instance($$self, $$props, $$invalidate) {
   let { id } = $$props;
 
-  $$self.$$set = $$props => {
+  $$self.$$set = ($$props) => {
     if ('id' in $$props) $$invalidate(0, (id = $$props.id));
   };
 
@@ -114,55 +114,73 @@ function createSlot(id) {
 }
 
 export function createReactComponent(name: string, SvelteComponent$$: any) {
-  let ReactComponent$$ = function ReactComponent(props) {
-    const rootRef = React.useRef<HTMLDivElement>(null);
+  let ReactComponent$$ = function ReactComponent(
+    props: PropsWithChildren<unknown>,
+  ) {
     const svelteComponentRef = React.useRef<any>();
+    const [svelteMountTarget, setSvelteMountTarget] =
+      React.useState<HTMLElement | null>(null);
+    const onRefChange = React.useCallback(setSvelteMountTarget, [
+      setSvelteMountTarget,
+    ]);
     const [mounted, setMounted] = React.useState(false);
     const id = React.useId();
+    const slotId = `${id}-slot`;
     const events = getEvents(props);
     const { children, ...svelteProps } = props;
 
     React.useEffect(() => {
-      const defaultSlot = createSlot(id);
-      let component = new SvelteComponent$$({
-        target: rootRef.current,
-        props: {
-          ...svelteProps,
-          $$slots: {
-            default: [defaultSlot],
+      if (svelteMountTarget) {
+        const defaultSlot = createSlot(id);
+
+        svelteComponentRef.current = new SvelteComponent$$({
+          target: svelteMountTarget,
+          props: {
+            ...svelteProps,
+            $$slots: {
+              default: [defaultSlot],
+            },
+            $$scope: {},
           },
-          $$scope: {},
-        },
-        hydrate: true,
-      });
-      setMounted(true);
-      svelteComponentRef.current = component;
+          hydrate: true,
+        });
 
-      for (const [event, handler] of events) {
-        component.$on(event, handler);
+        setMounted(true);
+
+        for (const [event, handler] of events) {
+          svelteComponentRef.current.$on(event, handler);
+        }
+
+        return () => {
+          svelteComponentRef.current.$destroy();
+          setMounted(false);
+        };
       }
-
-      return () => {
-        component.$destroy();
-      };
-    }, []);
+    }, [svelteMountTarget]);
 
     React.useEffect(() => {
       React.startTransition(() => {
-        svelteComponentRef.current!.$set(props);
+        svelteComponentRef.current?.$set(svelteProps);
       });
-    }, [props]);
+    }, [svelteProps]);
 
     return (
       <>
         <div
-          ref={rootRef}
+          key={id}
+          ref={onRefChange}
           style={{ display: 'contents' }}
           dangerouslySetInnerHTML={{ __html: '' }}
         />
         {mounted &&
           children &&
-          ReactDOM.createPortal(children, document.getElementById(id))}
+          ReactDOM.createPortal(
+            children,
+            svelteComponentRef.current.$$.root.querySelector(
+              `[id='${slotId}']`,
+            ),
+            slotId,
+          )}
       </>
     );
   };

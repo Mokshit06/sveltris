@@ -122,12 +122,17 @@ export function createReactComponent(name: string, SvelteComponent$$: any) {
     const events = getEvents(props);
     const { children, ...svelteProps } = props;
 
+    // Filter out event handler props so they don't leak into Svelte's $set
+    const nonEventProps = Object.fromEntries(
+      Object.entries(svelteProps).filter(([prop]) => !/^on[A-Z]/.test(prop))
+    );
+
     React.useEffect(() => {
       const defaultSlot = createSlot(id);
       let component = new SvelteComponent$$({
         target: rootRef.current,
         props: {
-          ...svelteProps,
+          ...nonEventProps,
           $$slots: {
             default: [defaultSlot],
           },
@@ -138,20 +143,35 @@ export function createReactComponent(name: string, SvelteComponent$$: any) {
       setMounted(true);
       svelteComponentRef.current = component;
 
-      for (const [event, handler] of events) {
-        component.$on(event, handler);
-      }
-
       return () => {
         component.$destroy();
       };
     }, []);
 
+    // Update event handlers on every render so they don't go stale
     React.useEffect(() => {
+      const component = svelteComponentRef.current;
+      if (!component) return;
+
+      const unsubscribers: (() => void)[] = [];
+      for (const [event, handler] of events) {
+        unsubscribers.push(component.$on(event, handler));
+      }
+
+      return () => {
+        for (const unsub of unsubscribers) {
+          unsub();
+        }
+      };
+    }, [events]);
+
+    // Update only non-event props via Svelte's $set
+    React.useEffect(() => {
+      if (!svelteComponentRef.current) return;
       React.startTransition(() => {
-        svelteComponentRef.current!.$set(props);
+        svelteComponentRef.current!.$set(nonEventProps);
       });
-    }, [props]);
+    }, [nonEventProps]);
 
     return (
       <>

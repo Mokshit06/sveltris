@@ -12,10 +12,16 @@ export function createReactComponent(name: string, SvelteComponent$$: any) {
       },
     });
 
+    // Include Svelte component CSS that would otherwise be silently discarded
+    const cssCode = result.css?.code;
+    const htmlWithCss = cssCode
+      ? `<style>${cssCode}</style>${result.html}`
+      : result.html;
+
     return (
       <div
         style={{ display: 'contents' }}
-        dangerouslySetInnerHTML={{ __html: result.html }}
+        dangerouslySetInnerHTML={{ __html: htmlWithCss }}
       />
     );
   };

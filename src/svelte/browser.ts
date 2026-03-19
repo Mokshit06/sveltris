@@ -38,11 +38,15 @@ function createReactApp(hookFn: any, store: any) {
   return function ReactApp() {
     const _state = hookFn();
 
+    // Sync hook state to the Svelte store only via useEffect.
+    // The previous synchronous store.set(_state) call during render
+    // violates React 18 concurrent rendering rules and can cause
+    // cascading updates and tearing.
     React.useEffect(() => {
       store.set(_state);
     }, [_state]);
 
-    store.set(_state);
+    return null;
   };
 }
 
